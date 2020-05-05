@@ -1,7 +1,7 @@
 '''
 Created on May 5, 2020
 
-@author: kaled
+@author: alita
 '''
 import databaseModule
 
@@ -38,18 +38,18 @@ def clear(self):
         
         
 def save(self):    
-        databaseModule.main()    
-        #Get customer name
-        custFirst = self.customerFirstName.get()
-        custLast = self.customerLastName.get()
-        custCity = self.customerCity.get()
+        #databaseModule.main()    
         
-        sql = """INSERT INTO customer 
-                    (custFirst, custLast, custCity) 
-                VALUES (?, ?, ?)"""
-        c.execute(sql, (custFirst, custLast, custCity))
-        conn.commit()    
-        print("Saved")
+        #custFirst = self.customerFirstName.get()
+        #custLast = self.customerLastName.get()
+        #custCity = self.customerCity.get()
+        
+        #sql = """INSERT INTO customer 
+        #            (custFirst, custLast, custCity) 
+        #        VALUES (?, ?, ?)"""
+        #c.execute(sql, (custFirst, custLast, custCity))
+        #conn.commit()    
+        #print("Saved")
         
 def exit(self):
         root.destroy()   
