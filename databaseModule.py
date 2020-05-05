@@ -41,8 +41,8 @@ def main():
     
     createSalesTable = """CREATE TABLE IF NOT EXISTS sales (
                                 saleID integer PRIMARY KEY,
-                                custumoerId integer NOT NULL,
-                                resivervationDate date NOT NULL,
+                                customerId integer NOT NULL,
+                                reservationDate date NOT NULL,
                                 extraServices character(30) NOT NULL,
                                 costExtraServices money NOT NULL,
                                 totalCost money NOT NULL);"""
