@@ -37,6 +37,7 @@ class ReservationFrame(ttk.Frame):
         ttk.Entry(self, width=25, textvariable=self.endDate).grid(column=1, row=1)
         
         #extraServices
+        global linensTrue
         linensTrue = IntVar()
         Checkbutton(self, text="Yes", variable=linensTrue).grid(row=2, column =1, sticky=tk.W )
         linensFalse = IntVar()
@@ -105,8 +106,7 @@ class ReservationFrame(ttk.Frame):
         self.startDate.set("")
                 
         print("End Date", self.endDate.get())
-        self.endDate.set("")
-                
+        self.endDate.set("")                
             
     def save(self):    
         #create Connection to database 
@@ -141,6 +141,39 @@ class ReservationFrame(ttk.Frame):
                    'salesDate':self.startDate.get()
                    }
                   )        
+        #Creating SaleID
+        y = TRUE
+        while y is TRUE:
+            stringSaleID= ''
+            for x in range(4):
+                randomDigit = random.choice('0123456789')
+                stringSaleID += randomDigit
+            saleID = int(stringSaleID)
+            #checks to see if id already exists in table
+            c.execute("SELECT saleID FROM sales where saleID = :randomID LIMIT 1", {'randomID':saleID})
+            if c.fetchone():
+                y = TRUE
+            else:
+                y = FALSE
+        #Seeing if extra service box checked   
+        cost = 200.00     
+        extraServ = linensTrue.get()
+        if extraServ == 0:
+            extraPrice = '$0.00'
+            services = 'No'
+        else:
+            extraPrice = '$15.00'
+            services = 'Yes'
+            cost += 15.00
+        
+        c.execute("INSERT INTO sales VALUES (:salesId, :customerId, :resDate, :extraServices, :extraCost, :totalCost)",
+                  {'salesId':saleID,
+                   'customerId':custID,
+                   'resDate':self.startDate.get(),
+                   'extraServices':services,
+                   'extraCost':extraPrice,
+                   'totalCost':cost
+                   })
         
         conn.commit()    
         conn.close()
