@@ -1,4 +1,8 @@
+'''
+Created on May 13, 2020
 
+@author: apfox
+'''
 import tkinter as tk
 from tkinter import *
 from tkinter import ttk
@@ -118,13 +122,11 @@ class ReservationFrame(ttk.Frame):
         print("Customer Zip", self.customerZip.get())
         self.customerZip.set("")
                 
-        
         self.startDate = tk.StringVar()
-        start = self.startDay, "/" , self.startMonth, "/", self.startYear
-        self.startDate.set(start)
+        self.startDate.set(self.startDay, "/" , self.startMonth, "/", self.startYear)
         self.endDate = tk.StringVar()
-        end = self.endDay, "/" , self.endMonth, "/", self.startYear
-        self.endDate.set(end)
+        self.endDate.set(self.endDay, "/" , self.endMonth, "/", self.startYear)
+        
         print("Start Date", self.startDate.get())
         self.startDate.set("")
                 
@@ -162,6 +164,7 @@ class ReservationFrame(ttk.Frame):
                 y = FALSE
                 
         #insert into table
+        reservationDate = str(self.startMonth.get()) + "/" + str(self.startDay.get())
         c.execute("INSERT INTO customer VALUES (:customerId, :firstName, :lastName, :email, :phone, :address, :salesDate)",
                   {'customerId':custID, 
                    'firstName':self.customerFirstName.get(), 
@@ -169,7 +172,7 @@ class ReservationFrame(ttk.Frame):
                    'email':self.customerEmail.get(),
                    'phone':self.customerPhoneNumber.get(),
                    'address':self.customerAddress.get(),
-                   'salesDate':self.startDate.get()
+                   'salesDate':reservationDate
                    }
                   )        
         #Creating SaleID
@@ -187,19 +190,21 @@ class ReservationFrame(ttk.Frame):
             else:
                 y = FALSE
         #Seeing if extra service box checked   
+        endD = self.endDay.get()
+        startD = self.startDay.get()
         if self.startMonth.get() != self.endMonth.get():
             if self.startMonth.get()== 1 or 3 or 5 or 7 or 8 or 10 or 12:
-                duration = 31 -self.startDay.get() + self.endDate.get()
+                duration = 31 -self.startDay.get() + self.endDay.get()
             elif self.startMonth.get()== 4 or 6 or 9 or 11:
-                duration = 30 -self.startDay.get() + self.endDate.get()
+                duration = 30 -self.startDay.get() + self.endDay.get()
             elif self.startMonth.get()== 2:
                 if calendar.isleap(self.startYear.get()) == True:
-                    duration = 29-self.startDay.get() + self.endDate.get()
+                    duration = 29-self.startDay.get() + self.endDay.get()
                 else:
-                    duration = 28-self.startDay.get() + self.endDate.get()
+                    duration = 28-self.startDay.get() + self.endDay.get()
         else:
-            duration = self.endDate.get() - self.startDate.get() 
-         
+            duration = endD - startD
+             
         cost = 50.00*duration     
         extraServ = linensTrue.get()
         if extraServ == 0:
@@ -210,10 +215,11 @@ class ReservationFrame(ttk.Frame):
             services = 'Yes'
             cost += 15.00
         
+        salesDate = str(self.startMonth.get()) + "/" + str(self.startDay.get())
         c.execute("INSERT INTO sales VALUES (:salesId, :customerId, :resDate, :extraServices, :extraCost, :totalCost)",
                   {'salesId':saleID,
                    'customerId':custID,
-                   'resDate':self.startDate.get(),
+                   'resDate':salesDate,
                    'extraServices':services,
                    'extraCost':extraPrice,
                    'totalCost':cost
