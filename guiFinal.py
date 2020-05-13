@@ -118,11 +118,13 @@ class ReservationFrame(ttk.Frame):
         print("Customer Zip", self.customerZip.get())
         self.customerZip.set("")
                 
-        self.startDate = tk.StringVar()
-        self.startDate.set(self.startDay, "/" , self.startMonth, "/", self.startYear)
-        self.endDate = tk.StringVar()
-        self.endDate.set(self.endDay, "/" , self.endMonth, "/", self.startYear)
         
+        self.startDate = tk.StringVar()
+        start = self.startDay, "/" , self.startMonth, "/", self.startYear
+        self.startDate.set(start)
+        self.endDate = tk.StringVar()
+        end = self.endDay, "/" , self.endMonth, "/", self.startYear
+        self.endDate.set(end)
         print("Start Date", self.startDate.get())
         self.startDate.set("")
                 
@@ -140,7 +142,7 @@ class ReservationFrame(ttk.Frame):
         start = self.startDay, "/" , self.startMonth, "/", self.startYear
         self.startDate.set(start)
         self.endDate = tk.StringVar()
-        end = self.endDay, "/" , self.endMonth, "/", self.endYear
+        end = self.endDay, "/" , self.endMonth, "/", self.startYear
         self.endDate.set(end)
         
         
