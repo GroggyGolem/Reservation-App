@@ -56,7 +56,7 @@ class ReservationFrame(ttk.Frame):
         linensTrue = IntVar()
         Checkbutton(self, text="Yes", variable=linensTrue).grid(row=2, column =1, sticky=tk.W )
         linensFalse = IntVar()
-        Checkbutton(self, text="No", variable=linensFalse).grid(row=2, column=2, sticky=tk.W)
+        Checkbutton(self, text="No", variable=linensFalse).grid(row=2, column=1, sticky=tk.E)
         
         self.customerFirstName = tk.StringVar()
         ttk.Entry(self, width=25, textvariable=self.customerFirstName).grid(column=1, row=3)
