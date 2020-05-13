@@ -219,7 +219,6 @@ class ReservationFrame(ttk.Frame):
         conn.close()
   
 #  -- main  --
-databaseModule.createConnection("MRCreservations")   
 
 root = tk.Tk()
 root.title("Request Reservation")
