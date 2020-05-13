@@ -132,7 +132,7 @@ class ReservationFrame(ttk.Frame):
     def save(self):    
         #create Connection to database 
         databaseModule.main()    
-        database = r"C:\sqlite\db\reservation.db"
+        database = r"C:\sqlite3\db\reservation.db"
         conn = createConnection(database)
         c = conn.cursor()
         
