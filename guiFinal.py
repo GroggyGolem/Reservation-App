@@ -121,7 +121,7 @@ class ReservationFrame(ttk.Frame):
         self.startDate = tk.StringVar()
         self.startDate.set(self.startDay, "/" , self.startMonth, "/", self.startYear)
         self.endDate = tk.StringVar()
-        self.endDate.set(self.endDay, "/" , self.endMonth, "/", self.endYear)
+        self.endDate.set(self.endDay, "/" , self.endMonth, "/", self.startYear)
         
         print("Start Date", self.startDate.get())
         self.startDate.set("")
