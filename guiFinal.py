@@ -137,9 +137,11 @@ class ReservationFrame(ttk.Frame):
         c = conn.cursor()
         
         self.startDate = tk.StringVar()
-        self.startDate.set(self.startDay, "/" , self.startMonth, "/", self.startYear)
+        start = self.startDay, "/" , self.startMonth, "/", self.startYear
+        self.startDate.set(start)
         self.endDate = tk.StringVar()
-        self.endDate.set(self.endDay, "/" , self.endMonth, "/", self.endYear)
+        end = self.endDay, "/" , self.endMonth, "/", self.endYear
+        self.endDate.set(end)
         
         
         #create random Customer ID
