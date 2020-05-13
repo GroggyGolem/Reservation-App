@@ -189,16 +189,16 @@ class ReservationFrame(ttk.Frame):
         #Seeing if extra service box checked   
         if self.startMonth.get() != self.endMonth.get():
             if self.startMonth.get()== 1 or 3 or 5 or 7 or 8 or 10 or 12:
-                duration = 31 -self.startDay.get() + self.endDate.get()
+                duration = 31 -self.startDay.get() + self.endDay.get()
             elif self.startMonth.get()== 4 or 6 or 9 or 11:
-                duration = 30 -self.startDay.get() + self.endDate.get()
+                duration = 30 -self.startDay.get() + self.endDay.get()
             elif self.startMonth.get()== 2:
                 if calendar.isleap(self.startYear.get()) == True:
-                    duration = 29-self.startDay.get() + self.endDate.get()
+                    duration = 29-self.startDay.get() + self.endDay.get()
                 else:
-                    duration = 28-self.startDay.get() + self.endDate.get()
+                    duration = 28-self.startDay.get() + self.endDay.get()
         else:
-            duration = self.endDate.get() - self.startDate.get() 
+            duration = self.endDay.get() - self.startDay.get() 
          
         cost = 50.00*duration     
         extraServ = linensTrue.get()
