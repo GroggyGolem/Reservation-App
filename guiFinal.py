@@ -219,11 +219,10 @@ class ReservationFrame(ttk.Frame):
         conn.close()
   
 #  -- main  --
-if __name__ == "__main__":
-    databaseModule.createConnection("MRCreservations")   
+databaseModule.createConnection("MRCreservations")   
 
-    root = tk.Tk()
-    root.title("Request Reservation")
-    root.geometry("500x500")
-    ReservationFrame(root)
-    root.mainloop()
+root = tk.Tk()
+root.title("Request Reservation")
+root.geometry("500x500")
+ReservationFrame(root)
+root.mainloop()
