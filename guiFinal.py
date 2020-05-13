@@ -1,40 +1,55 @@
-'''
-Created on May 7, 2020
 
-@author: apfox
-'''
 import tkinter as tk
 from tkinter import *
 from tkinter import ttk
 import databaseModule
 from databaseModule import createConnection
 import random
+from datetime import date
+import calendar
 
 
 class ReservationFrame(ttk.Frame):
     def __init__(self, parent):
         ttk.Frame.__init__(self, parent, padding="10 10 10 10")
         self.pack(fill=tk.BOTH, expand=True)   
-        
-                  
+      
+
+          
         #Create a label
-        ttk.Label(self, text="Reservation Start Date").grid(column=0, row=0, sticky=tk.E)
-        ttk.Label(self, text="Reservation End Date").grid(column=0, row=1, sticky=tk.E)
+        ttk.Label(self, text="Reservation Start Date:").grid(column=0, row=0, sticky=tk.E)
+        ttk.Label(self, text="Reservation End Date:").grid(column=0, row=1, sticky=tk.E)
         ttk.Label(self, text="Would you like linens provided? ($15)").grid(column=0, row=2, sticky=tk.E)
-        ttk.Label(self, text="First Name").grid(column=0, row=3, sticky=tk.E)
-        ttk.Label(self, text="Last Name").grid(column=0, row=4, sticky=tk.E)
-        ttk.Label(self, text="Email").grid(column=0, row=5, sticky=tk.E)
-        ttk.Label(self, text="Phone Number").grid(column=0, row=6, sticky=tk.E)
-        ttk.Label(self, text="Address").grid(column=0, row=7, sticky=tk.E)
-        ttk.Label(self, text="City").grid(column=0, row=8, sticky=tk.E)
-        ttk.Label(self, text="State").grid(column=0, row=9, sticky=tk.E)
-        ttk.Label(self, text="Zip Code").grid(column=0, row=10, sticky=tk.E)
+        ttk.Label(self, text="First Name:").grid(column=0, row=3, sticky=tk.E)
+        ttk.Label(self, text="Last Name:").grid(column=0, row=4, sticky=tk.E)
+        ttk.Label(self, text="Email:").grid(column=0, row=5, sticky=tk.E)
+        ttk.Label(self, text="Phone Number:").grid(column=0, row=6, sticky=tk.E)
+        ttk.Label(self, text="Address:").grid(column=0, row=7, sticky=tk.E)
+        ttk.Label(self, text="City:").grid(column=0, row=8, sticky=tk.E)
+        ttk.Label(self, text="State:").grid(column=0, row=9, sticky=tk.E)
+        ttk.Label(self, text="Zip Code:").grid(column=0, row=10, sticky=tk.E)
 
         #Create entry field
-        self.startDate = tk.StringVar()
-        ttk.Entry(self, width=25, textvariable=self.startDate).grid(column=1, row=0)
-        self.endDate = tk.StringVar()
-        ttk.Entry(self, width=25, textvariable=self.endDate).grid(column=1, row=1)
+        self.startDay = tk.IntVar()
+        ttk.Entry(self, width=10, textvariable=self.startDay).grid(column=1, row=0, sticky=tk.W)
+        self.startMonth = tk.IntVar()
+        ttk.Entry(self, width=10, textvariable=self.startMonth).grid(column=1, row=0, sticky=tk.E)
+        self.startYear = tk.IntVar()
+        ttk.Entry(self, width=10, textvariable=self.startYear).grid(column=2, row=0)
+        
+        self.startDay.set('DD')
+        self.startMonth.set('MM')
+        self.startYear.set(date.today().year)
+
+                                  
+        self.endDay = tk.IntVar()
+        ttk.Entry(self, width=10, textvariable=self.endDay).grid(column=1, row=1, sticky=tk.W)
+        self.endMonth = tk.IntVar()
+        ttk.Entry(self, width=10, textvariable=self.endMonth).grid(column=1, row=1, sticky=tk.E)
+        
+        self.endDay.set('DD')
+        self.endMonth.set('MM')
+        
         
         #extraServices
         global linensTrue
@@ -59,6 +74,7 @@ class ReservationFrame(ttk.Frame):
         ttk.Entry(self, width=25, textvariable=self.customerState).grid(column=1, row=9)
         self.customerZip = tk.StringVar()
         ttk.Entry(self, width=25, textvariable=self.customerZip).grid(column=1, row=10)
+
 
         #Create Clearbutton
         ttk.Button(self, text="Clear", command=self.clear).grid(column=0, row = 13)
@@ -102,6 +118,11 @@ class ReservationFrame(ttk.Frame):
         print("Customer Zip", self.customerZip.get())
         self.customerZip.set("")
                 
+        self.startDate = tk.StringVar()
+        self.startDate.set(self.startDay, "/" , self.startMonth, "/", self.startYear)
+        self.endDate = tk.StringVar()
+        self.endDate.set(self.endDay, "/" , self.endMonth, "/", self.endYear)
+        
         print("Start Date", self.startDate.get())
         self.startDate.set("")
                 
@@ -114,6 +135,12 @@ class ReservationFrame(ttk.Frame):
         database = r"C:\sqlite\db\reservation.db"
         conn = createConnection(database)
         c = conn.cursor()
+        
+        self.startDate = tk.StringVar()
+        self.startDate.set(self.startDay, "/" , self.startMonth, "/", self.startYear)
+        self.endDate = tk.StringVar()
+        self.endDate.set(self.endDay, "/" , self.endMonth, "/", self.endYear)
+        
         
         #create random Customer ID
         y = TRUE
@@ -156,7 +183,20 @@ class ReservationFrame(ttk.Frame):
             else:
                 y = FALSE
         #Seeing if extra service box checked   
-        cost = 200.00     
+        if self.startMonth.get() != self.endMonth.get():
+            if self.startMonth.get()== 1 or 3 or 5 or 7 or 8 or 10 or 12:
+                duration = 31 -self.startDay.get() + self.endDate.get()
+            elif self.startMonth.get()== 4 or 6 or 9 or 11:
+                duration = 30 -self.startDay.get() + self.endDate.get()
+            elif self.startMonth.get()== 2:
+                if calendar.isleap(self.startYear.get()) == True:
+                    duration = 29-self.startDay.get() + self.endDate.get()
+                else:
+                    duration = 28-self.startDay.get() + self.endDate.get()
+        else:
+            duration = self.endDate.get() - self.startDate.get() 
+         
+        cost = 50.00*duration     
         extraServ = linensTrue.get()
         if extraServ == 0:
             extraPrice = '$0.00'
@@ -187,7 +227,3 @@ if __name__ == "__main__":
     root.geometry("500x500")
     ReservationFrame(root)
     root.mainloop()
-
-
- 
-#conn.close()    
