@@ -120,10 +120,10 @@ class ReservationFrame(ttk.Frame):
                 
         
         self.startDate = tk.StringVar()
-        start = self.startDay, "/" , self.startMonth, "/", self.startYear
+        start = self.startDay.get(), "/" , self.startMonth.get(), "/", self.startYear.get()
         self.startDate.set(start)
         self.endDate = tk.StringVar()
-        end = self.endDay, "/" , self.endMonth, "/", self.startYear
+        end = self.endDay.get(), "/" , self.endMonth.get(), "/", self.startYear.get()
         self.endDate.set(end)
         print("Start Date", self.startDate.get())
         self.startDate.set("")
@@ -139,10 +139,10 @@ class ReservationFrame(ttk.Frame):
         c = conn.cursor()
         
         self.startDate = tk.StringVar()
-        start = self.startDay, "/" , self.startMonth, "/", self.startYear
+        start = self.startDay.get(), "/" , self.startMonth.get(), "/", self.startYear.get()
         self.startDate.set(start)
         self.endDate = tk.StringVar()
-        end = self.endDay, "/" , self.endMonth, "/", self.startYear
+        end = self.endDay.get(), "/" , self.endMonth.get(), "/", self.startYear.get()
         self.endDate.set(end)
         
         
@@ -189,16 +189,16 @@ class ReservationFrame(ttk.Frame):
         #Seeing if extra service box checked   
         if self.startMonth.get() != self.endMonth.get():
             if self.startMonth.get()== 1 or 3 or 5 or 7 or 8 or 10 or 12:
-                duration = 31 -self.startDay.get() + self.endDate.get()
+                duration = 31 -self.startDay.get() + self.endDay.get()
             elif self.startMonth.get()== 4 or 6 or 9 or 11:
-                duration = 30 -self.startDay.get() + self.endDate.get()
+                duration = 30 -self.startDay.get() + self.endDay.get()
             elif self.startMonth.get()== 2:
                 if calendar.isleap(self.startYear.get()) == True:
-                    duration = 29-self.startDay.get() + self.endDate.get()
+                    duration = 29-self.startDay.get() + self.endDay.get()
                 else:
-                    duration = 28-self.startDay.get() + self.endDate.get()
+                    duration = 28-self.startDay.get() + self.endDay.get()
         else:
-            duration = self.endDate.get() - self.startDate.get() 
+            duration = self.endDay.get() - self.startDay.get() 
          
         cost = 50.00*duration     
         extraServ = linensTrue.get()
@@ -221,11 +221,15 @@ class ReservationFrame(ttk.Frame):
         
         conn.commit()    
         conn.close()
+        
+        ttk.Label(self, text="Your reservation has been requested.").grid(column=1, row=14)
+        ttk.Label(self, text="Your total will be $"+ str(cost)).grid(column=1, row=15)
+        
   
 #  -- main  --
 
 root = tk.Tk()
 root.title("Request Reservation")
-root.geometry("500x500")
+root.geometry("600x500")
 ReservationFrame(root)
 root.mainloop()
