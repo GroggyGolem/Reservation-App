@@ -140,11 +140,9 @@ class ReservationFrame(ttk.Frame):
         c = conn.cursor()
         
         self.startDate = tk.StringVar()
-        start = self.startDay.get(), "/" , self.startMonth.get(), "/", self.startYear.get()
-        self.startDate.set(start)
+        self.startDate.set(self.startDay.get()+ "-" + self.startMonth.get()+ "-"+ self.startYear.get())
         self.endDate = tk.StringVar()
-        end = self.endDay.get(), "/" , self.endMonth.get(), "/", self.startYear.get()
-        self.endDate.set(end)
+        self.endDate.set(self.endDay.get()+ "-" + self.endMonth.get()+ "-"+ self.startYear.get())
         
         
         #create random Customer ID
@@ -170,7 +168,7 @@ class ReservationFrame(ttk.Frame):
                    'email':self.customerEmail.get(),
                    'phone':self.customerPhoneNumber.get(),
                    'address':self.customerAddress.get(),
-                   'salesDate':self.startDate.get()
+                   'salesDate': date.today()
                    }
                   )        
         #Creating SaleID
