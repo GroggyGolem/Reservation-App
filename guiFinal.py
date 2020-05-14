@@ -221,11 +221,15 @@ class ReservationFrame(ttk.Frame):
         
         conn.commit()    
         conn.close()
+        
+        ttk.Label(self, text="Your reservation has been requested.").grid(column=1, row=14)
+        ttk.Label(self, text="Your total will be $"+ str(cost)).grid(column=1, row=15)
+        
   
 #  -- main  --
 
 root = tk.Tk()
 root.title("Request Reservation")
-root.geometry("500x500")
+root.geometry("600x500")
 ReservationFrame(root)
 root.mainloop()
