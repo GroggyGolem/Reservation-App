@@ -119,13 +119,11 @@ class ReservationFrame(ttk.Frame):
         print("Customer Zip", self.customerZip.get())
         self.customerZip.set("")
                 
-        
         self.startDate = tk.StringVar()
-        start = self.startDay.get(), "/" , self.startMonth.get(), "/", self.startYear.get()
-        self.startDate.set(start)
+        self.startDate.set(str(self.startDay.get())+ "-" + str(self.startMonth.get())+ "-"+ str(self.startYear.get()))
         self.endDate = tk.StringVar()
-        end = self.endDay.get(), "/" , self.endMonth.get(), "/", self.startYear.get()
-        self.endDate.set(end)
+        self.endDate.set(str(self.endDay.get())+ "-" + str(self.endMonth.get())+ "-"+ str(self.startYear.get()))
+      
         print("Start Date", self.startDate.get())
         self.startDate.set("")
                 
@@ -140,11 +138,9 @@ class ReservationFrame(ttk.Frame):
         c = conn.cursor()
         
         self.startDate = tk.StringVar()
-        start = self.startDay.get(), "/" , self.startMonth.get(), "/", self.startYear.get()
-        self.startDate.set(start)
+        self.startDate.set(str(self.startDay.get())+ "-" + str(self.startMonth.get())+ "-"+ str(self.startYear.get()))
         self.endDate = tk.StringVar()
-        end = self.endDay.get(), "/" , self.endMonth.get(), "/", self.startYear.get()
-        self.endDate.set(end)
+        self.endDate.set(str(self.endDay.get())+ "-" + str(self.endMonth.get())+ "-"+ str(self.startYear.get()))
         
         
         #create random Customer ID
@@ -170,7 +166,7 @@ class ReservationFrame(ttk.Frame):
                    'email':self.customerEmail.get(),
                    'phone':self.customerPhoneNumber.get(),
                    'address':self.customerAddress.get(),
-                   'salesDate':self.startDate.get()
+                   'salesDate': date.today()
                    }
                   )        
         #Creating SaleID
