@@ -30,10 +30,11 @@ class ReservationFrame(ttk.Frame):
         ttk.Label(self, text="Zip Code:").grid(column=0, row=10, sticky=tk.E)
 
         #Create entry field
-        self.startDay = tk.IntVar()
-        ttk.Entry(self, width=10, textvariable=self.startDay).grid(column=1, row=0, sticky=tk.W)
+        
         self.startMonth = tk.IntVar()
-        ttk.Entry(self, width=10, textvariable=self.startMonth).grid(column=1, row=0, sticky=tk.E)
+        ttk.Entry(self, width=10, textvariable=self.startMonth).grid(column=1, row=0, sticky=tk.W)
+        self.startDay = tk.IntVar()
+        ttk.Entry(self, width=10, textvariable=self.startDay).grid(column=1, row=0, sticky=tk.E)
         self.startYear = tk.IntVar()
         ttk.Entry(self, width=10, textvariable=self.startYear).grid(column=2, row=0)
         
@@ -42,10 +43,10 @@ class ReservationFrame(ttk.Frame):
         self.startYear.set(date.today().year)
 
                                   
-        self.endDay = tk.IntVar()
-        ttk.Entry(self, width=10, textvariable=self.endDay).grid(column=1, row=1, sticky=tk.W)
         self.endMonth = tk.IntVar()
-        ttk.Entry(self, width=10, textvariable=self.endMonth).grid(column=1, row=1, sticky=tk.E)
+        ttk.Entry(self, width=10, textvariable=self.endMonth).grid(column=1, row=1, sticky=tk.W)
+        self.endDay = tk.IntVar()
+        ttk.Entry(self, width=10, textvariable=self.endDay).grid(column=1, row=1, sticky=tk.E)
         
         self.endDay.set('DD')
         self.endMonth.set('MM')
